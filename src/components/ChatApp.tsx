@@ -1,4 +1,5 @@
 import { useMessages } from "../hooks/useMessages";
+import { MessageItem } from "./MessageItem";
 
 export function ChatApp() {
   const { messages, isLoading, error } = useMessages();
@@ -19,10 +20,7 @@ export function ChatApp() {
         ) : (
           <ul>
             {messages.map((message) => (
-              <li key={message._id}>
-                <strong>{message.author}</strong>: {message.message}{" "}
-                <small>{message.createdAt}</small>
-              </li>
+              <MessageItem key={message._id} message={message} />
             ))}
           </ul>
         )}
