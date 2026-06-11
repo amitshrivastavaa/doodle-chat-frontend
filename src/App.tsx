@@ -1,5 +1,7 @@
+import { ChatApp } from "./components/ChatApp";
+
 function App() {
-  return <>Chat</>;
+  return <ChatApp />;
 }
 
 export default App;
