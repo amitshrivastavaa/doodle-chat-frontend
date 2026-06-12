@@ -4,12 +4,14 @@ import { formatTimestamp } from "../lib/formatTimestamp";
 
 type MessageItemProps = {
   message: Message;
+  isOwn: boolean;
 };
 
-export function MessageItem({ message }: MessageItemProps) {
+export function MessageItem({ message, isOwn }: MessageItemProps) {
   return (
     <li>
-      <strong>{message.author}</strong>: {decodeEntities(message.message)}{" "}
+      <strong>{isOwn ? "You" : message.author}</strong>:{" "}
+      {decodeEntities(message.message)}{" "}
       <small>{formatTimestamp(message.createdAt)}</small>
     </li>
   );
