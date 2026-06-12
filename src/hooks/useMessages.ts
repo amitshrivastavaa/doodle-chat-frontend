@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getMessages } from "../api/messages";
-import type { Message } from "../api/types";
+import { createMessage, getMessages } from "../api/messages";
+import type { CreateMessagePayload, Message } from "../api/types";
 
 export function useMessages() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -27,5 +27,14 @@ export function useMessages() {
     };
   }, []);
 
-  return { messages, isLoading, error };
+  const sendMessage = async (payload: CreateMessagePayload) => {
+    try {
+      const saved = await createMessage(payload);
+      setMessages((prev) => [...prev, saved]);
+    } catch {
+      setError("Could not send message.");
+    }
+  };
+
+  return { messages, isLoading, error, sendMessage };
 }

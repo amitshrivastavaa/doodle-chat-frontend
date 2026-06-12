@@ -1,8 +1,9 @@
 import { useMessages } from "../hooks/useMessages";
+import { MessageComposer } from "./MessageComposer";
 import { MessageItem } from "./MessageItem";
 
 export function ChatApp() {
-  const { messages, isLoading, error } = useMessages();
+  const { messages, isLoading, error, sendMessage } = useMessages();
 
   return (
     <div>
@@ -26,8 +27,14 @@ export function ChatApp() {
         )}
       </main>
 
-      {/* composer goes here (step 3) */}
-      <footer></footer>
+      <footer>
+        <MessageComposer
+          onSend={(text) => {
+            sendMessage({ message: text, author: "Amit" });
+          }}
+          disabled={isLoading}
+        />
+      </footer>
     </div>
   );
 }
