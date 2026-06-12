@@ -89,6 +89,10 @@ src/
 - **No live updates from others.** Messages load once on mount; seeing new messages
   from other senders requires a reload. The API is REST-only (no WebSocket), so a
   real-time feel would mean polling the `after` cursor — left out to keep scope tight.
+- **No pagination.** Messages load in a single request. The API returns the oldest
+  page (default 50, max 1000) when no cursor is given, so a history longer than that
+  would need cursor pagination via the `before`/`after` params — load older on
+  scroll-up, fetch newer to catch up. Out of scope for the challenge's dataset.
 - **The API token ships in the client bundle.** `VITE_`-prefixed variables are
   embedded at build time and visible in the browser. This is inherent to a
   client-only app with no backend-for-frontend, and is not production-secure.
