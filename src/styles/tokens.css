@@ -1,0 +1,38 @@
+:root {
+  /* Colors — sampled from the Doodle mockup */
+  --color-bg: #f4f4f4;
+  --color-surface: #ffffff;
+  --color-own: #fbf8d6;
+  --color-text: #4a4a4a;
+  --color-text-muted: #9b9b9b;
+  --color-border: #e6e6e6;
+  --color-accent: #3a9cd9;
+  --color-send: #f96b5c;
+  --color-send-hover: #f1573f;
+  --color-on-accent: #ffffff;
+  --color-error: #c0392b;
+
+  /* Spacing — 8px scale, matching the mockup's 8 / 16 / 24 specs */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* Layout — mockup caps the chat column at 640px */
+  --chat-max-width: 640px;
+
+  /* Typography — system stack keeps load fast (no web-font request) */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --line-height: 1.4;
+
+  /* Elevation */
+  --shadow-bubble: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
