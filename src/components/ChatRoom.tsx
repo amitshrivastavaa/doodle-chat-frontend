@@ -1,6 +1,8 @@
+import { useEffect, useRef } from "react";
 import { useMessages } from "../hooks/useMessages";
 import { MessageComposer } from "./MessageComposer";
 import { MessageItem } from "./MessageItem";
+import styles from "./ChatRoom.module.css";
 
 type ChatRoomProps = {
   name: string;
@@ -8,22 +10,28 @@ type ChatRoomProps = {
 
 export function ChatRoom({ name }: ChatRoomProps) {
   const { messages, isLoading, error, sendMessage } = useMessages();
+  const listRef = useRef<HTMLElement>(null);
+
+  // Jump to the newest message on load and after a successful send
+  // (both are the moments `messages` changes).
+  useEffect(() => {
+    const list = listRef.current;
+    if (list) list.scrollTop = list.scrollHeight;
+  }, [messages]);
 
   return (
-    <div>
-      <header>
-        <h1>Chat</h1>
-      </header>
+    <div className={styles.room}>
+      <h1 className="sr-only">Doodle Chat</h1>
 
-      <main>
+      <main ref={listRef} className={styles.list}>
         {isLoading ? (
-          <p>Loading…</p>
+          <p className={styles.status}>Loading…</p>
         ) : error ? (
-          <p>{error}</p>
+          <p className={styles.status}>{error}</p>
         ) : messages.length === 0 ? (
-          <p>No messages yet</p>
+          <p className={styles.status}>No messages yet</p>
         ) : (
-          <ul>
+          <ul className={styles.messages}>
             {messages.map((message) => (
               <MessageItem
                 key={message._id}
@@ -35,14 +43,10 @@ export function ChatRoom({ name }: ChatRoomProps) {
         )}
       </main>
 
-      <footer>
-        <MessageComposer
-          onSend={(text) => {
-            sendMessage({ message: text, author: name });
-          }}
-          disabled={isLoading}
-        />
-      </footer>
+      <MessageComposer
+        onSend={(text) => sendMessage({ message: text, author: name })}
+        disabled={isLoading}
+      />
     </div>
   );
 }

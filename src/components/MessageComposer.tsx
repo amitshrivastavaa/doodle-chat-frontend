@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./MessageComposer.module.css";
 
 const MAX_LENGTH = 500;
 const COUNTER_THRESHOLD = 50;
@@ -26,24 +27,31 @@ export function MessageComposer({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="composer-input">Message</label>
-      <input
-        id="composer-input"
-        type="text"
-        placeholder="Message"
-        value={value}
-        maxLength={MAX_LENGTH}
-        autoComplete="off"
-        disabled={disabled}
-        onChange={(event) => setValue(event.target.value)}
-      />
-      {remaining <= COUNTER_THRESHOLD && (
-        <span aria-live="polite">{remaining} characters left</span>
-      )}
-      <button type="submit" disabled={!canSend}>
-        Send
-      </button>
-    </form>
+    <footer className={styles.bar}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label htmlFor="composer-input" className="sr-only">
+          Message
+        </label>
+        <input
+          id="composer-input"
+          className={styles.input}
+          type="text"
+          placeholder="Message"
+          value={value}
+          maxLength={MAX_LENGTH}
+          autoComplete="off"
+          disabled={disabled}
+          onChange={(event) => setValue(event.target.value)}
+        />
+        {remaining <= COUNTER_THRESHOLD && (
+          <span className={styles.counter} aria-live="polite">
+            {remaining} characters left
+          </span>
+        )}
+        <button type="submit" className={styles.send} disabled={!canSend}>
+          Send
+        </button>
+      </form>
+    </footer>
   );
 }

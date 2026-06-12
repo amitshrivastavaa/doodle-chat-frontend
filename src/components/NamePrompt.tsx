@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./NamePrompt.module.css";
 
 const MAX_LENGTH = 50;
 const NAME_PATTERN = /^[\w\s-]+$/;
@@ -26,29 +27,42 @@ export function NamePrompt({ onSave }: NamePromptProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} aria-labelledby="name-title">
-      <h1 id="name-title">What should we call you?</h1>
-      <label htmlFor="name-input">Your name</label>
-      <input
-        id="name-input"
-        type="text"
-        placeholder="Your name"
-        value={value}
-        maxLength={MAX_LENGTH}
-        autoFocus
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? "name-error" : undefined}
-        onChange={(event) => {
-          setValue(event.target.value);
-          setError(null);
-        }}
-      />
-      {error && (
-        <p id="name-error" role="alert">
-          {error}
-        </p>
-      )}
-      <button type="submit">Start chatting</button>
-    </form>
+    <div className={styles.screen}>
+      <form
+        className={styles.card}
+        onSubmit={handleSubmit}
+        aria-labelledby="name-title"
+      >
+        <h1 id="name-title" className={styles.title}>
+          What should we call you?
+        </h1>
+        <label htmlFor="name-input" className="sr-only">
+          Your name
+        </label>
+        <input
+          id="name-input"
+          className={styles.input}
+          type="text"
+          placeholder="Your name"
+          value={value}
+          maxLength={MAX_LENGTH}
+          autoFocus
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? "name-error" : undefined}
+          onChange={(event) => {
+            setValue(event.target.value);
+            setError(null);
+          }}
+        />
+        {error && (
+          <p id="name-error" className={styles.error} role="alert">
+            {error}
+          </p>
+        )}
+        <button type="submit" className={styles.submit}>
+          Start chatting
+        </button>
+      </form>
+    </div>
   );
 }
