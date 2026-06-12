@@ -12,6 +12,8 @@ export function useMessages() {
 
     async function load() {
       try {
+        // API returns messages oldest-first, so they map straight to the list
+        // (oldest at top, newest by the composer); sends append below.
         const data = await getMessages();
         if (!cancelled) setMessages(data);
       } catch {
